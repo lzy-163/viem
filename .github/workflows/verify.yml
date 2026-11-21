@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
+        with:
           submodules: 'recursive'
 
       - name: Install dependencies
@@ -23,7 +23,7 @@ jobs:
 
       - name: Check code
         run: pnpm check
-      
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,14 +34,14 @@ jobs:
 
   build:
     name: Build
-    needs: lint
+    needs: check
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
+        with:
           submodules: 'recursive'
 
       - name: Install dependencies
@@ -55,13 +55,13 @@ jobs:
 
       - name: Check for unused files, dependencies, and exports
         run: pnpm knip --production
-        
+
       - name: Check size
         run: pnpm size
 
   types:
     name: Types
-    needs: lint
+    needs: check
     runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:
@@ -71,7 +71,7 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
+        with:
           submodules: 'recursive'
 
       - name: Install dependencies
@@ -104,7 +104,7 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
+        with:
           submodules: 'recursive'
 
       - name: Install dependencies
@@ -164,7 +164,7 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
+        with:
           submodules: 'recursive'
 
       - name: Set up foundry
@@ -204,7 +204,7 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
+        with:
           submodules: 'recursive'
 
       - name: Install dependencies
@@ -226,7 +226,7 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-        with: 
+        with:
           submodules: 'recursive'
 
       - name: Install dependencies
@@ -247,4 +247,3 @@ jobs:
       - name: Check build
         run: pnpm build
         working-directory: ./wagmi
-
